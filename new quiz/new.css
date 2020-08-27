@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    height: 100vh;
+    width: 88vw;
+    background-image: linear-gradient(90deg, rgb(71, 175, 223) , rgba(209, 2, 157, 0.815));
+}
+
+h1 {
+    color: aliceblue;
+    top: 50px;
+    left: 50px;
+    position: relative;
+    top: 80px;
+    left: 280px;
+}
+
+form {
+    width:70vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 100px;
+    left: 250px;
+    background: rgba(240, 248, 255, 0.774);
+    border-radius: 40px;
+}
+
+.Quiz-name {
+    width: 15vw;
+    height: 4vh;
+    position: relative;
+    bottom: 120px;
+    right: 480px;
+    padding-left: 40px;
+    font-size: 20px; 
+}
+
+.question {
+    width: 45vw;
+    height: 7vh;
+    position: relative;
+    bottom: 100px;
+    padding-left: 45px;
+    font-size: 25px; 
+}
+
+.photo-upload{
+    position: relative;
+    bottom: 60px;
+}
+
+.answers{
+    position: relative;
+    top: 110px;
+    width: 58vw;
+    height: 30vh;
+    display:grid;
+    grid-template: 15vh 15vh / 29vw 29vw;
+}
+
+.button1{
+    font-size: 30px;
+    color: aliceblue;
+    background: rgb(236, 58, 26);
+    cursor: pointer;
+}
+
+.button2{
+    font-size: 30px;
+    color: aliceblue;
+    background: rgb(0, 140, 255);
+    cursor: pointer;
+}
+
+.button3{
+    font-size: 30px;
+    color: aliceblue;
+    background: rgb(233, 163, 13);
+    cursor: pointer;
+}
+
+.button4{
+    font-size: 30px;
+    color: aliceblue;
+    background: rgb(19, 209, 2);
+    cursor: pointer;
+}
