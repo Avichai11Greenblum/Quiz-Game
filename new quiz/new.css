@@ -6,7 +6,7 @@
 
 body {
     height: 100vh;
-    width: 88vw;
+    width: 85vw;
     background-image: linear-gradient(90deg, rgb(71, 175, 223) , rgba(209, 2, 157, 0.815));
 }
 
@@ -16,7 +16,7 @@ h1 {
     left: 50px;
     position: relative;
     top: 80px;
-    left: 280px;
+    right: 280px;
 }
 
 form {
@@ -28,27 +28,33 @@ form {
     align-items: center;
     position: relative;
     top: 100px;
-    left: 250px;
+    right: 250px;
     background: rgba(240, 248, 255, 0.774);
     border-radius: 40px;
 }
 
 .Quiz-name {
+    position: relative;
     width: 15vw;
-    height: 4vh;
+    height: 40px;
+    bottom: 90px;
+    left: 480px;
+    padding-right: 40px;
+    font-size: 20px; 
+}
+
+p {
     position: relative;
     bottom: 120px;
-    right: 480px;
-    padding-left: 40px;
-    font-size: 20px; 
+    font-size: 40px;;
 }
 
 .question {
     width: 45vw;
-    height: 7vh;
+    height: 6vh;
     position: relative;
     bottom: 100px;
-    padding-left: 45px;
+    padding-right: 45px;
     font-size: 25px; 
 }
 
@@ -57,39 +63,40 @@ form {
     bottom: 60px;
 }
 
+.back{
+    position: relative;
+    left: 550px;
+}
+
+.forward{
+    position: relative;
+    right: 550px;
+}
+
 .answers{
     position: relative;
-    top: 110px;
+    top: 100px;
     width: 58vw;
     height: 30vh;
-    display:grid;
-    grid-template: 15vh 15vh / 29vw 29vw;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.button1{
-    font-size: 30px;
-    color: aliceblue;
-    background: rgb(236, 58, 26);
-    cursor: pointer;
+.answers
+input {
+    width: 750px;
+    height: 60px;
+    background: #f2f2f2;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.button2{
-    font-size: 30px;
-    color: aliceblue;
-    background: rgb(0, 140, 255);
-    cursor: pointer;
+.answerArea {
+    display: flex;
 }
 
-.button3{
-    font-size: 30px;
-    color: aliceblue;
-    background: rgb(233, 163, 13);
-    cursor: pointer;
-}
-
-.button4{
-    font-size: 30px;
-    color: aliceblue;
-    background: rgb(19, 209, 2);
-    cursor: pointer;
+#correct{
+    width: 25px;
+    margin-right: 15px;
 }
