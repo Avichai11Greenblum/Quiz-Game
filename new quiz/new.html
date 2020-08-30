@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="rtl">
 <head>
     <link href="./new.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Quiz</title>
+    <title>שאלון חדש</title>
 </head>
 <body>
     <header>
-        <h1>Making a new Quiz</h1>
+        <h1>יצירת שאלון חדש</h1>
         <br/>
     </header>
     
@@ -17,38 +17,80 @@
         <input
         class="Quiz-name"
         type="text"
-        placeholder="quiz name">
+        placeholder="שם השאלון">
+
+        <p>שאלה מספר</p>
+        <p class="questionNum">$</p>
 
         <input
         class="question"
         type="text"
-        placeholder="Write your question here">
+        placeholder="כתוב את השאלה כאן">
 
         <input 
         class="photo-upload"
         type="file"
         accept="image/png, image/jpeg">
 
-        <div class="answers">
+        <div class="navButtons">
+
             <button
-            class="button1">
-            this answer1
+            class="back">
+            < הקודם
             </button>
 
             <button
-            class="button2">
-            this answer2
+            class="forward">
+            הבא >
             </button>
+
+        </div>
+
+        <div class="answers">
+
+            <div class="answerArea">
+                <input
+                class="answer1"
+                placeholder="תשובה 1">
+                <input type="radio" 
+                class="radio" 
+                name="correct"
+                id="correct"
+                value=1>
+            </div>
+
+            <div class="answerArea">
+                <input
+                class="answer2"
+                placeholder="תשובה 2">
+                <input type="radio" 
+                class="radio" 
+                name="correct"
+                id="correct"
+                value=2>
+            </div>
             
-            <button
-            class="button3">
-            this answer3
-            </button>
+            <div class="answerArea">
+                <input
+                class="answer3"
+                placeholder="תשובה 3">
+                <input type="radio" 
+                class="radio" 
+                name="correct"
+                id="correct"
+                value=3>
+            </div>
             
-            <button
-            class="button4">
-            this answer4
-            </button>
+            <div class="answerArea">
+                <input
+                class="answer4"
+                placeholder="תשובה 4">
+                <input type="radio" 
+                class="radio" 
+                name="correct"
+                id="correct"
+                value=4>
+            </div>
 
         </div>
     </form>
