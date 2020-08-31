@@ -1,23 +1,25 @@
 // Selectors
 const QuizName = document.querySelector(".Quiz-name");
+const questionInput = document.querySelector(".question");
+const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
-const answer3 = document.querySelector('.answer3');
-const answer4 = document.querySelector('.answer4');
 const questionNum = document.querySelector('.questionNum');
 
 // Global variables
 let currentQuestion = 1;
 let questionData = {
     num: currentQuestion,
-    question: '',
+    questionText: '',
     correctAnswer: ''
 };
 
+
 // Event listeners
 document.addEventListener("DOMContentLoaded", updateNum);
-nextButton.addEventListener("Click", nextQuestion);
-// backButton.addEventListener("Click", prevQuestion);
+nextButton.addEventListener("click", nextQuestion);
+// backButton.addEventListener("click", prevQuestion);
+saveButton.addEventListener("click", saveQuestion);
 
 // Functions
 
@@ -26,7 +28,29 @@ function updateNum() {
     questionNum.textContent = currentQuestion;
 };
 
-function nextQuestion(){
+function nextQuestion(event){
+    event.preventDefault();
     // currentQuestion += 1;
-    console.log(currentQuestion);
+    console.log("12");
+}
+
+// A function that will save the user's progress at local storage
+function saveQuestion(event) {
+    let questions;
+    console.log("12");
+
+
+    // if (localStorage.getItem('questions') === null) {
+    //     // if we don't have any previous questions we will create a new list that will contain the questions
+    //     questions = [];
+    // } else {
+    //     // if we do have previous tasks we will use them as "questions"
+    //     questions = JSON.parse(localStorage.getItem("questions"));    
+    // }
+    
+    // // adding the new question data mission to the list
+    // questions.push(newMission);
+
+    // // setting the new question variable in the local storage
+    // localStorage.setItem("questions", JSON.stringify(questions));
 }
