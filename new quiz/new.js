@@ -31,13 +31,11 @@ function updateNum() {
 function nextQuestion(event){
     event.preventDefault();
     // currentQuestion += 1;
-    console.log("12");
 }
 
 // A function that will save the user's progress at local storage
 function saveQuestion(event) {
     let questions;
-    console.log("12");
 
 
     // if (localStorage.getItem('questions') === null) {
