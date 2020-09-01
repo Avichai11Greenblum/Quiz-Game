@@ -1,54 +1,53 @@
-// Selectors
+// SELECTORS
 const QuizName = document.querySelector(".Quiz-name");
+const questionNum = document.querySelector('.questionNum');
 const questionInput = document.querySelector(".question");
+
 const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
-const questionNum = document.querySelector('.questionNum');
 
-// Global variables
-let currentQuestion = 1;
+
+// GLOBAL VARIABLES
 let questionData = {
-    num: currentQuestion,
+    num: '',
     questionText: '',
+    questionIMG: '',
     correctAnswer: ''
 };
-
-
-// Event listeners
-document.addEventListener("DOMContentLoaded", updateNum);
-nextButton.addEventListener("click", nextQuestion);
-// backButton.addEventListener("click", prevQuestion);
-saveButton.addEventListener("click", saveQuestion);
-
-// Functions
-
-// A function that will show the current number of a question
-function updateNum() {
-    questionNum.textContent = currentQuestion;
+// A check to see if Data doesn't exists in local  
+if (localStorage.getItem('Data') === null) {
+    questionData.num = 1;
+    localStorage.setItem("Data", JSON.stringify(questionData));
 };
 
-function nextQuestion(event){
-    event.preventDefault();
-    // currentQuestion += 1;
+
+// EVENT LISTENERS
+document.addEventListener("DOMContentLoaded", setNum);
+// document.addEventListener("change", updateData);
+nextButton.addEventListener("click", nextQuestion);
+backButton.addEventListener("click", prevQuestion);
+// saveButton.addEventListener("click", saveQuestion);
+
+
+// FUNCTIONS
+
+// A function that will show the current number of a question
+function setNum() {
+    const Data = JSON.parse(localStorage.getItem('Data'));
+    questionNum.innerHTML = Data.num;
+};
+
+
+function nextQuestion() {
+    const DataContent = JSON.parse(localStorage.getItem('Data'));
+    DataContent.num += 1;
+    localStorage.setItem("Data", JSON.stringify(DataContent));
 }
 
-// A function that will save the user's progress at local storage
-function saveQuestion(event) {
-    let questions;
 
-
-    // if (localStorage.getItem('questions') === null) {
-    //     // if we don't have any previous questions we will create a new list that will contain the questions
-    //     questions = [];
-    // } else {
-    //     // if we do have previous tasks we will use them as "questions"
-    //     questions = JSON.parse(localStorage.getItem("questions"));    
-    // }
-    
-    // // adding the new question data mission to the list
-    // questions.push(newMission);
-
-    // // setting the new question variable in the local storage
-    // localStorage.setItem("questions", JSON.stringify(questions));
+function prevQuestion() {
+    const DataContent = JSON.parse(localStorage.getItem('Data'));
+    DataContent.num -= 1;
+    localStorage.setItem("Data", JSON.stringify(DataContent));
 }
