@@ -21,10 +21,14 @@ if (localStorage.getItem('Data') === null) {
     localStorage.setItem("Data", JSON.stringify(questionData));
 };
 
+let questionList
+if (localStorage.getItem("questionList") === null){
+    questionList = [undefined];
+    localStorage.setItem("questionList",JSON.stringify(questionList));  
+} else {
+    questionList = localStorage.getItem("questionList");
+}
 
-let questionList = ['$'];
-localStorage.setItem("questionList",JSON.stringify(questionList));
-    
 
 
 // EVENT LISTENERS
@@ -55,7 +59,7 @@ function updateData() {
 // Function for moving to the next question
 function nextQuestion(e) {
 
-    e.preventDefault();
+    e.preventDefault(); // preventing the button from refreshing the page
 
     // Bringing up the local storage
     let DataContent = JSON.parse(localStorage.getItem('Data'));
@@ -71,18 +75,19 @@ function nextQuestion(e) {
         localStorage.setItem("questionList", JSON.stringify(questionListContent));
     };
 
-    questionInput.value = '';
-    DataContent.num += 1;
     
-    // if (questionListContent[DataContent.num - 1] === null){
-    //     DataContent.questionText = '';
-    //     DataContent.questionIMG = '';
-    //     DataContent.correctAnswer = '';
-    // } else {
-    //     DataContent.questionText = questionListContent[DataContent.num].questionText;
-    //     DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
-    //     DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
-    // }
+    DataContent.num += 1;
+    questionNum.innerHTML = DataContent.num;
+    
+    if (questionListContent[DataContent.num] === undefined){
+        DataContent.questionText = '';
+        DataContent.questionIMG = '';
+        DataContent.correctAnswer = '';
+    } else {
+        DataContent.questionText = questionListContent[DataContent.num].questionText;
+        DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
+        DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
+    }
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
 
@@ -90,8 +95,21 @@ function nextQuestion(e) {
 
 
 // Function for moving to the previous question
-function prevQuestion() {
-    const DataContent = JSON.parse(localStorage.getItem('Data'));
+function prevQuestion(e) {
+
+    e.preventDefault(); // preventing the button from refreshing the page
+
+    // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+    
+    
     DataContent.num -= 1;
+    questionNum.innerHTML = DataContent.num;
+    console.log(DataContent);
+    // DataContent.questionText = questionListContent[DataContent.num].questionText;
+    // DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
+    // DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
+
     localStorage.setItem("Data", JSON.stringify(DataContent));
 };
