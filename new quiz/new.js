@@ -22,7 +22,7 @@ if (localStorage.getItem('Data') === null) {
 };
 
 
-let questionList = {};
+let questionList = ['$'];
 localStorage.setItem("questionList",JSON.stringify(questionList));
     
 
@@ -44,6 +44,7 @@ function setInfo() {
 };
 
 
+// A function that save the question text to Data.questionText
 function updateData() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
     DataContent.questionText = questionInput.value;
@@ -51,20 +52,37 @@ function updateData() {
 };
 
 
-
-        //  i was in the middle of making the next button save the object of data as one of 
-        //  the values in the object of questionList all in local Storage. 
-
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Function for moving to the next question
-function nextQuestion() {
-    const DataContent = JSON.parse(localStorage.getItem('Data'));
-    const questionListContent = JSON.parse(localStorage.getItem('questionList'));
+function nextQuestion(e) {
 
+    e.preventDefault();
 
-    localStorage.setItem("questionList", JSON.stringify(questionListContent));
+    // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+    
+    
+    // Setting the data according to the question number
+    if (questionListContent[(DataContent.num - 1)] === undefined){
+        questionListContent.push(DataContent);
+        localStorage.setItem("questionList", JSON.stringify(questionListContent));
+    } else {
+        questionListContent[(DataContent.num - 1)] =  DataContent;
+        localStorage.setItem("questionList", JSON.stringify(questionListContent));
+    };
 
+    questionInput.value = '';
     DataContent.num += 1;
+    
+    // if (questionListContent[DataContent.num - 1] === null){
+    //     DataContent.questionText = '';
+    //     DataContent.questionIMG = '';
+    //     DataContent.correctAnswer = '';
+    // } else {
+    //     DataContent.questionText = questionListContent[DataContent.num].questionText;
+    //     DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
+    //     DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
+    // }
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
 
