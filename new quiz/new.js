@@ -1,7 +1,7 @@
 // SELECTORS
 const QuizName = document.querySelector(".Quiz-name");
 const questionNum = document.querySelector('.questionNum');
-const questionInput = document.querySelector(".question");
+const questionText = document.querySelector(".question");
 
 const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
@@ -51,7 +51,7 @@ function setInfo() {
 // A function that save the question text to Data.questionText
 function updateData() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
-    DataContent.questionText = questionInput.value;
+    DataContent.questionText = questionText.value;
     localStorage.setItem("Data", JSON.stringify(DataContent));
 };
 
@@ -65,7 +65,6 @@ function nextQuestion(e) {
     let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     
-    
     // Setting the data according to the question number
     if (questionListContent[(DataContent.num - 1)] === undefined){
         questionListContent.push(DataContent);
@@ -75,21 +74,23 @@ function nextQuestion(e) {
         localStorage.setItem("questionList", JSON.stringify(questionListContent));
     };
 
-    
+    // Changing the displayed question number according to the value we are at
     DataContent.num += 1;
     questionNum.innerHTML = DataContent.num;
     
+    // setting the values for the next item on the list
     if (questionListContent[DataContent.num] === undefined){
         DataContent.questionText = '';
         DataContent.questionIMG = '';
         DataContent.correctAnswer = '';
     } else {
-        DataContent.questionText = questionListContent[DataContent.num].questionText;
-        DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
-        DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
+        DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
+        DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
+        DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
+
     }
     localStorage.setItem("Data", JSON.stringify(DataContent));
-
+    // console.log(DataContent);
 
 };
 
@@ -98,18 +99,27 @@ function nextQuestion(e) {
 function prevQuestion(e) {
 
     e.preventDefault(); // preventing the button from refreshing the page
-
+    
     // Bringing up the local storage
     let DataContent = JSON.parse(localStorage.getItem('Data'));
-    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));    
     
-    
+    // preventing the user from going to a lower number then 1 and ending the function here
+    if (DataContent.num === 1){
+        return '';
+    };
+
+    // Changing the displayed question number according to the value we are at
     DataContent.num -= 1;
     questionNum.innerHTML = DataContent.num;
-    console.log(DataContent);
-    // DataContent.questionText = questionListContent[DataContent.num].questionText;
-    // DataContent.questionIMG = questionListContent[DataContent.num].questionIMG;
-    // DataContent.correctAnswer = questionListContent[DataContent.num].correctAnswer;
 
+    // Setting the question text
+    DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
+    questionText.value = DataContent.questionText;
+
+    DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
+    DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
     localStorage.setItem("Data", JSON.stringify(DataContent));
+
+
 };
