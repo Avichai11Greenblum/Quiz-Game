@@ -45,6 +45,7 @@ backButton.addEventListener("click", prevQuestion);
 function setInfo() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
     questionNum.innerHTML = DataContent.num;
+    questionText.value = DataContent.questionText;
 };
 
 
@@ -58,7 +59,6 @@ function updateData() {
 
 // Function for moving to the next question
 function nextQuestion(e) {
-
     e.preventDefault(); // preventing the button from refreshing the page
 
     // Bringing up the local storage
@@ -83,21 +83,27 @@ function nextQuestion(e) {
         DataContent.questionText = '';
         DataContent.questionIMG = '';
         DataContent.correctAnswer = '';
+
+        // UI change
+        questionText.value = DataContent.questionText;
+
     } else {
         DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
         DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
-        DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
+        DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;   
 
-    }
+        // UI change
+        questionText.value = DataContent.questionText;
+    };
+
     localStorage.setItem("Data", JSON.stringify(DataContent));
-    // console.log(DataContent);
+    console.log(DataContent);
 
 };
 
 
 // Function for moving to the previous question
 function prevQuestion(e) {
-
     e.preventDefault(); // preventing the button from refreshing the page
     
     // Bringing up the local storage
@@ -121,5 +127,5 @@ function prevQuestion(e) {
     DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
-
+    console.log(DataContent);
 };
