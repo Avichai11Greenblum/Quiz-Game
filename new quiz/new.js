@@ -7,6 +7,10 @@ const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
 
+const radioButton1 = document.querySelector(".radio1");
+const radioButton2 = document.querySelector(".radio2");
+const radioButton3 = document.querySelector(".radio3");
+const radioButton4 = document.querySelector(".radio4");
 
 // GLOBAL VARIABLES
 let questionData = {
@@ -32,11 +36,17 @@ if (localStorage.getItem("questionList") === null){
 
 
 // EVENT LISTENERS
+
 document.addEventListener("DOMContentLoaded", setInfo);
 document.addEventListener("change", updateData);
+
 nextButton.addEventListener("click", nextQuestion);
 backButton.addEventListener("click", prevQuestion);
-// saveButton.addEventListener("click", saveQuestion);
+
+radioButton1.addEventListener("click", correctFunction);
+radioButton2.addEventListener("click", correctFunction);
+radioButton3.addEventListener("click", correctFunction);
+radioButton4.addEventListener("click", correctFunction);
 
 
 // FUNCTIONS
@@ -97,7 +107,7 @@ function nextQuestion(e) {
     };
 
     localStorage.setItem("Data", JSON.stringify(DataContent));
-    console.log(DataContent);
+    // console.log(DataContent);
 
 };
 
@@ -127,5 +137,29 @@ function prevQuestion(e) {
     DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
-    console.log(DataContent);
+    // console.log(DataContent);
+};
+
+
+function correctFunction() {
+
+    // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+
+    if (radioButton1.checked) {
+        DataContent.correctAnswer = 1;
+
+    } else if (radioButton2.checked){
+        DataContent.correctAnswer = 2;
+
+    } else if (radioButton3.checked){
+        DataContent.correctAnswer = 3;
+
+    } else if (radioButton4.checked){
+        DataContent.correctAnswer = 4;
+    }
+    
+    localStorage.setItem("Data", JSON.stringify(DataContent));
+    
 };
