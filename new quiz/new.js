@@ -1,4 +1,5 @@
                 // SELECTORS
+
 const QuizName = document.querySelector(".Quiz-name");
 const questionNum = document.querySelector('.questionNum');
 const questionText = document.querySelector(".question");
@@ -13,6 +14,7 @@ const radioButton3 = document.querySelector(".radio3");
 const radioButton4 = document.querySelector(".radio4");
 
                // GLOBAL VARIABLES
+
 let questionData = {
     num: '',
     questionText: '',
@@ -56,7 +58,7 @@ radioButton4.addEventListener("click", correctFunction);
 
                 // FUNCTIONS
 
-// A function that will show the current number of a question
+// A function that will show the current info of a question when the user gets inside the website
 function setInfo() {
     const QuizName_storage = JSON.parse(localStorage.getItem('QuizName'));
     const DataContent = JSON.parse(localStorage.getItem('Data'));
@@ -100,7 +102,10 @@ function nextQuestion(e) {
     DataContent.num += 1;
     questionNum.innerHTML = DataContent.num;
     
-    // setting the values for the next item on the list
+    // setting the values for the next item on the list:
+
+    // If the next question doesn't have any saved values at all so we will make "Data"(local storage) be blank and it will be
+    // filled ny the user.
     if (questionListContent[DataContent.num] === undefined){
         DataContent.questionText = '';
         DataContent.questionIMG = '';
@@ -109,7 +114,8 @@ function nextQuestion(e) {
         // UI change
         questionText.value = DataContent.questionText;
 
-    } else {
+      // If the next question does have saved values so we will set them on the values of "Data"(local storage)
+    } else { 
         DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
         DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
         DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;   
@@ -119,8 +125,6 @@ function nextQuestion(e) {
     };
 
     localStorage.setItem("Data", JSON.stringify(DataContent));
-    // console.log(DataContent);
-
 };
 
 
@@ -133,7 +137,9 @@ function prevQuestion(e) {
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));    
     
     // preventing the user from going to a lower number then 1 and ending the function here
+    // with an alert that explains it.
     if (DataContent.num === 1){
+        alert("זו היא שאלה מספר 1 ואין אפשרות לעשות שאלה לפניה.")
         return '';
     };
 
