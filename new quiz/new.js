@@ -1,4 +1,4 @@
-// SELECTORS
+                // SELECTORS
 const QuizName = document.querySelector(".Quiz-name");
 const questionNum = document.querySelector('.questionNum');
 const questionText = document.querySelector(".question");
@@ -12,19 +12,21 @@ const radioButton2 = document.querySelector(".radio2");
 const radioButton3 = document.querySelector(".radio3");
 const radioButton4 = document.querySelector(".radio4");
 
-// GLOBAL VARIABLES
+               // GLOBAL VARIABLES
 let questionData = {
     num: '',
     questionText: '',
     questionIMG: '',
     correctAnswer: ''
 };
-// A check to see if Data doesn't exists in local  
+
+// A check to see if Data doesn't exists in local and if not so create it
 if (localStorage.getItem('Data') === null) {
     questionData.num = 1;
     localStorage.setItem("Data", JSON.stringify(questionData));
 };
 
+// Same check for concept for questionList 
 let questionList
 if (localStorage.getItem("questionList") === null){
     questionList = [undefined];
@@ -33,9 +35,12 @@ if (localStorage.getItem("questionList") === null){
     questionList = localStorage.getItem("questionList");
 }
 
+// Making the space for the Quiz name in local storage
+if (localStorage.getItem("QuizNAme") === "") {
+    localStorage.setItem("QuizName",JSON.stringify(""));
+};
 
-
-// EVENT LISTENERS
+                // EVENT LISTENERS
 
 document.addEventListener("DOMContentLoaded", setInfo);
 document.addEventListener("change", updateData);
@@ -49,11 +54,14 @@ radioButton3.addEventListener("click", correctFunction);
 radioButton4.addEventListener("click", correctFunction);
 
 
-// FUNCTIONS
+                // FUNCTIONS
 
 // A function that will show the current number of a question
 function setInfo() {
+    const QuizName_storage = JSON.parse(localStorage.getItem('QuizName'));
     const DataContent = JSON.parse(localStorage.getItem('Data'));
+
+    QuizName.value = QuizName_storage;
     questionNum.innerHTML = DataContent.num;
     questionText.value = DataContent.questionText;
 };
@@ -62,7 +70,11 @@ function setInfo() {
 // A function that save the question text to Data.questionText
 function updateData() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
+    const QuizName_storage = QuizName.value;
+
     DataContent.questionText = questionText.value;
+
+    localStorage.setItem("QuizName",JSON.stringify(QuizName_storage));
     localStorage.setItem("Data", JSON.stringify(DataContent));
 };
 
