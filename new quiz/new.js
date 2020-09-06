@@ -1,7 +1,7 @@
                 // SELECTORS
 
-const QuizName = document.querySelector(".Quiz-name");
-const questionNum = document.querySelector('.questionNum');
+const GUIQuizName = document.querySelector(".Quiz-name");
+const GUIQuestionNum = document.querySelector('.questionNum');
 const questionText = document.querySelector(".question");
 
 const saveButton = document.querySelector(".save");
@@ -63,8 +63,8 @@ function setInfo() {
     const QuizName_storage = JSON.parse(localStorage.getItem('QuizName'));
     const DataContent = JSON.parse(localStorage.getItem('Data'));
 
-    QuizName.value = QuizName_storage;
-    questionNum.innerHTML = DataContent.num;
+    GUIQuizName.value = QuizName_storage;
+    GUIQuestionNum.innerHTML = DataContent.num;
     questionText.value = DataContent.questionText;
 };
 
@@ -72,7 +72,7 @@ function setInfo() {
 // A function that save the question text to Data.questionText
 function updateData() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
-    const QuizName_storage = QuizName.value;
+    const QuizName_storage = GUIQuizName.value;
 
     DataContent.questionText = questionText.value;
 
@@ -90,17 +90,20 @@ function nextQuestion(e) {
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     
     // Setting the data according to the question number
+
+    // If the next question doesn't have values it will be blank
     if (questionListContent[(DataContent.num - 1)] === undefined){
         questionListContent.push(DataContent);
         localStorage.setItem("questionList", JSON.stringify(questionListContent));
-    } else {
+
+    } else { // If the next question has values load them up from local storage 
         questionListContent[(DataContent.num - 1)] =  DataContent;
         localStorage.setItem("questionList", JSON.stringify(questionListContent));
     };
 
     // Changing the displayed question number according to the value we are at
     DataContent.num += 1;
-    questionNum.innerHTML = DataContent.num;
+    GUIQuestionNum.innerHTML = DataContent.num;
     
     // setting the values for the next item on the list:
 
@@ -143,19 +146,26 @@ function prevQuestion(e) {
         return '';
     };
 
+    // Saving the current question values when going back to the previous question so the user 
+    // will be able to go back and forth and all of his progress will be saved. 
+    
+    // questionListContent[DataContent.num - 1] --> now is one index ahead of the displayed number same for DataContent
+    
+    questionListContent[DataContent.num - 1] = DataContent;
+    localStorage.setItem("questionList", JSON.stringify(questionListContent));
+
+    // Setting the previous question values: 
+
     // Changing the displayed question number according to the value we are at
     DataContent.num -= 1;
-    questionNum.innerHTML = DataContent.num;
+    DataContent = questionListContent[DataContent.num - 1];
 
-    // Setting the question text
-    DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
+    // Changing the display according to the values in Data(local storage) for out question position.
     questionText.value = DataContent.questionText;
-
-    DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
-    DataContent.correctAnswer = questionListContent[DataContent.num - 1].correctAnswer;
+    GUIQuestionNum.innerHTML = DataContent.num;
+    
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
-    // console.log(DataContent);
 };
 
 
