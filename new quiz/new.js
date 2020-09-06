@@ -154,13 +154,13 @@ function prevQuestion(e) {
     questionListContent[DataContent.num - 1] = DataContent;
     localStorage.setItem("questionList", JSON.stringify(questionListContent));
 
-    // Setting the previous question values: 
 
-    // Changing the displayed question number according to the value we are at
+    // Setting the previous question values: 
+    // questionListContent[DataContent.num - 1] --> now is the index of the displayed number same for DataContent
     DataContent.num -= 1;
     DataContent = questionListContent[DataContent.num - 1];
 
-    // Changing the display according to the values in Data(local storage) for out question position.
+    // Changing the display(GUI) according to the values in Data(local storage) for out question position.
     questionText.value = DataContent.questionText;
     GUIQuestionNum.innerHTML = DataContent.num;
     
