@@ -106,29 +106,21 @@ function nextQuestion(e) {
     let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     
-    // Saving the values before going to the next question:
-    // questionListContent[DataContent.num - 1] --> now is the index of the current displayed question. (GUI = 2 --> index = 1)
-
-    // If the question we are at doesn't have values in it, we will make a blank object
-    if (questionListContent[(DataContent.num - 1)] === undefined){
-        questionListContent.push(DataContent);
-        localStorage.setItem("questionList", JSON.stringify(questionListContent));
-
-    } else { // Else, load the values up from local storage 
-        questionListContent[(DataContent.num - 1)] =  DataContent;
-        localStorage.setItem("questionList", JSON.stringify(questionListContent));
-    };
+    // questionListContent[DataContent.num ] --> now is the index of the current displayed question inside the local storage list. (GUI = 2 --> index = 1)
+    
+    // Saving the values of the question where we pressed forward before going to the next question:
+    questionListContent[(DataContent.num - 1)] = DataContent;
+    localStorage.setItem("questionList", JSON.stringify(questionListContent));
 
     // Moving to the next index and with it to the next question
-    // Changing the displayed question number according to the value we are at
     DataContent.num += 1;
-    GUIQuestionNum.innerHTML = DataContent.num;
-    
+    GUIQuestionNum.innerHTML = DataContent.num;  // Changing the displayed question number according to the value we are at
+
     // setting the values for the next item on the list:
     
-    // If the next question doesn't have any saved values at all so we will make "Data"(local storage) be blank and it will be
-    // filled ny the user.
-    if (questionListContent[DataContent.num] === undefined){
+    // If the question we just got to doesn't have any saved values at all so we will make "Data"(local storage) 
+    // to a blank object and it will be filled by the user.
+    if (questionListContent[DataContent.num - 1] === undefined){ // questionListContent[DataContent.num - 1] the index of the question we are heading to
         DataContent.questionText = '';
         DataContent.questionIMG = '';
         DataContent.correctAnswer = '';
