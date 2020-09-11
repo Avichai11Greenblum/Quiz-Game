@@ -2,7 +2,7 @@
 
 const GUIQuizName = document.querySelector(".Quiz-name");
 const GUIQuestionNum = document.querySelector('.questionNum');
-const questionText = document.querySelector(".question");
+const GUIquestionText = document.querySelector(".question");
 
 const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
@@ -71,7 +71,7 @@ function setInfo() {
 
     GUIQuizName.value = QuizName_storage;
     GUIQuestionNum.innerHTML = DataContent.num;
-    questionText.value = DataContent.questionText;
+    GUIquestionText.value = DataContent.questionText;
     answer1.value = DataContent.answersBank.first;
     answer2.value = DataContent.answersBank.second;
     answer3.value = DataContent.answersBank.third;
@@ -79,14 +79,14 @@ function setInfo() {
 };
     
     
-// A function that updates the the local storage according to what happens
+// A function that updates the the local storage according to changes of the inputs
 function updateData() {
     // Bringing up the local storage
     const DataContent = JSON.parse(localStorage.getItem('Data'));
     const QuizName_storage = GUIQuizName.value;
 
-    // Updating the needed values 
-    DataContent.questionText = questionText.value;
+    // Changing the display(GUI) according to the values in Data(local storage) for our question position. 
+    DataContent.questionText = GUIquestionText.value;
 
     DataContent.answersBank.first = answer1.value;
     DataContent.answersBank.second = answer2.value;
@@ -120,7 +120,7 @@ function nextQuestion(e) {
     
     // If the question we just got to doesn't have any saved values at all so we will make "Data"(local storage) 
     // to a blank object and it will be filled by the user.
-    if (questionListContent[DataContent.num - 1] === undefined){ // questionListContent[DataContent.num - 1] the index of the question we are heading to
+    if (questionListContent[DataContent.num - 1] === undefined){ // questionListContent[DataContent.num - 1] = index of the question we just got to
         DataContent.questionText = '';
         DataContent.questionIMG = '';
         DataContent.correctAnswer = '';
@@ -128,13 +128,20 @@ function nextQuestion(e) {
 
         // Changing the display(GUI) according to the values in Data(local storage) for our question position.
         GUIQuestionNum.innerHTML = DataContent.num;
-        questionText.value = DataContent.questionText;
+        GUIquestionText.value = DataContent.questionText;
+
         answer1.value = DataContent.answersBank.first;
         answer2.value = DataContent.answersBank.second;
         answer3.value = DataContent.answersBank.third;
         answer4.value = DataContent.answersBank.fourth;
 
-        // If the next question does have saved values so we will set them on the values of "Data"(local storage)
+        // Radio buttons change when going to a new question --------------- keep working from here %%%%%%
+        radioButton4.checked = "false";
+        radioButton2.checked = "false";
+        radioButton3.checked = "false";
+        
+
+        // If the question we just got to does have saved values so we will set them on the values of "Data"(local storage)
     } else { 
         DataContent.questionText = questionListContent[DataContent.num - 1].questionText;
         DataContent.questionIMG = questionListContent[DataContent.num - 1].questionIMG;
@@ -143,7 +150,7 @@ function nextQuestion(e) {
 
         // Changing the display(GUI) according to the values in Data(local storage) for our question position.
         GUIQuestionNum.innerHTML = DataContent.num;
-        questionText.value = DataContent.questionText;
+        GUIquestionText.value = DataContent.questionText;
         answer1.value = DataContent.answersBank.first;
         answer2.value = DataContent.answersBank.second;
         answer3.value = DataContent.answersBank.third;
@@ -185,7 +192,7 @@ function prevQuestion(e) {
 
     // Changing the display(GUI) according to the values in Data(local storage) for our question position.
     GUIQuestionNum.innerHTML = DataContent.num;
-    questionText.value = DataContent.questionText;
+    GUIquestionText.value = DataContent.questionText;
     answer1.value = DataContent.answersBank.first;
     answer2.value = DataContent.answersBank.second;
     answer3.value = DataContent.answersBank.third;
