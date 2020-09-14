@@ -135,10 +135,11 @@ function nextQuestion(e) {
         answer3.value = DataContent.answersBank.third;
         answer4.value = DataContent.answersBank.fourth;
 
-        // Radio buttons change when going to a new question --------------- keep working from here %%%%%%
-        radioButton4.checked = "false";
-        radioButton2.checked = "false";
-        radioButton3.checked = "false";
+        // Removing the checked radio button 
+        radioButton1.checked = false;
+        radioButton2.checked = false;
+        radioButton3.checked = false;
+        radioButton4.checked = false;
         
 
         // If the question we just got to does have saved values so we will set them on the values of "Data"(local storage)
@@ -151,10 +152,31 @@ function nextQuestion(e) {
         // Changing the display(GUI) according to the values in Data(local storage) for our question position.
         GUIQuestionNum.innerHTML = DataContent.num;
         GUIquestionText.value = DataContent.questionText;
+
         answer1.value = DataContent.answersBank.first;
         answer2.value = DataContent.answersBank.second;
         answer3.value = DataContent.answersBank.third;
         answer4.value = DataContent.answersBank.fourth;
+
+        // Putting the radio point at the correct answer 
+        switch (DataContent.correctAnswer) {
+            case 1:
+                radioButton1.checked = true;
+                break;
+
+            case 2:
+                radioButton2.checked = true;
+                break;
+
+            case 3:
+                radioButton3.checked = true;
+                break;
+
+            case 4:
+                radioButton4.checked = true;
+                break;
+                                    
+        };
     };
 
     localStorage.setItem("Data", JSON.stringify(DataContent));
@@ -198,7 +220,25 @@ function prevQuestion(e) {
     answer3.value = DataContent.answersBank.third;
     answer4.value = DataContent.answersBank.fourth;
     
-    
+    // Putting the radio point at the correct answer 
+    switch (DataContent.correctAnswer) {
+        case 1:
+            radioButton1.checked = true;
+            break;
+
+        case 2:
+            radioButton2.checked = true;
+            break;
+
+        case 3:
+            radioButton3.checked = true;
+            break;
+
+        case 4:
+            radioButton4.checked = true;
+            break;
+                                
+    };
     
     localStorage.setItem("Data", JSON.stringify(DataContent));
 
