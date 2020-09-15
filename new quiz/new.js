@@ -4,6 +4,7 @@ const GUIQuizName = document.querySelector(".Quiz-name");
 const GUIQuestionNum = document.querySelector('.questionNum');
 const GUIquestionText = document.querySelector(".question");
 
+const uploadPictureButton = document.querySelector(".photo-upload");
 const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
@@ -52,6 +53,8 @@ if (localStorage.getItem("QuizNAme") === "") {
 
 document.addEventListener("DOMContentLoaded", setInfo);
 document.addEventListener("change", updateData);
+
+uploadPictureButton.addEventListener("change", function() { displayPicture(this) });
 
 nextButton.addEventListener("click", nextQuestion);
 backButton.addEventListener("click", prevQuestion);
@@ -236,21 +239,19 @@ function prevQuestion(e) {
 
         case 4:
             radioButton4.checked = true;
-            break;
-                                
+            break;                        
     };
-    
+    // Saving to Data(Local storage)
     localStorage.setItem("Data", JSON.stringify(DataContent));
-
 };
     
-    
+ // A function that saves the correct answer   
 function correctFunction() {
 
     // Bringing up the local storage
     let DataContent = JSON.parse(localStorage.getItem('Data'));
-    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
 
+    // Finding which radio button is being clicked
     if (radioButton1.checked) {
         DataContent.correctAnswer = 1;
 
@@ -263,7 +264,20 @@ function correctFunction() {
     } else if (radioButton4.checked){
         DataContent.correctAnswer = 4;
     }
-    
-    localStorage.setItem("Data", JSON.stringify(DataContent));
-    
+    // Saving to Data(Local storage)
+    localStorage.setItem("Data", JSON.stringify(DataContent));  
+};
+
+
+function displayPicture(input) {
+    console.log(input)
+    if (input.files && input.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById("the-picture").setAttribute('src', e.target.result);
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    };
 };
