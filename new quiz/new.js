@@ -9,15 +9,19 @@ const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
 
-const radioButton1 = document.querySelector(".radio1");
-const radioButton2 = document.querySelector(".radio2");
-const radioButton3 = document.querySelector(".radio3");
-const radioButton4 = document.querySelector(".radio4");
+const GUIpicture = document.getElementById("the-picture");
 
 const answer1 = document.querySelector(".answer1");
 const answer2 = document.querySelector(".answer2");
 const answer3 = document.querySelector(".answer3");
 const answer4 = document.querySelector(".answer4");
+
+const radioButton1 = document.querySelector(".radio1");
+const radioButton2 = document.querySelector(".radio2");
+const radioButton3 = document.querySelector(".radio3");
+const radioButton4 = document.querySelector(".radio4");
+
+
     
 // GLOBAL VARIABLES
 
@@ -133,6 +137,8 @@ function nextQuestion(e) {
         GUIQuestionNum.innerHTML = DataContent.num;
         GUIquestionText.value = DataContent.questionText;
 
+        GUIpicture.setAttribute('src', DataContent.questionIMG);
+
         answer1.value = DataContent.answersBank.first;
         answer2.value = DataContent.answersBank.second;
         answer3.value = DataContent.answersBank.third;
@@ -155,6 +161,8 @@ function nextQuestion(e) {
         // Changing the display(GUI) according to the values in Data(local storage) for our question position.
         GUIQuestionNum.innerHTML = DataContent.num;
         GUIquestionText.value = DataContent.questionText;
+
+        GUIpicture.setAttribute('src', DataContent.questionIMG);
 
         answer1.value = DataContent.answersBank.first;
         answer2.value = DataContent.answersBank.second;
@@ -218,6 +226,9 @@ function prevQuestion(e) {
     // Changing the display(GUI) according to the values in Data(local storage) for our question position.
     GUIQuestionNum.innerHTML = DataContent.num;
     GUIquestionText.value = DataContent.questionText;
+
+    GUIpicture.setAttribute('src', DataContent.questionIMG);
+
     answer1.value = DataContent.answersBank.first;
     answer2.value = DataContent.answersBank.second;
     answer3.value = DataContent.answersBank.third;
@@ -268,16 +279,29 @@ function correctFunction() {
     localStorage.setItem("Data", JSON.stringify(DataContent));  
 };
 
-
+// A function that will show the picture that will be uploaded
 function displayPicture(input) {
-    console.log(input)
+    
+    // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+
+    // Check for the inputted picture and make a file reader 
     if (input.files && input.files[0]) {
         let reader = new FileReader();
 
+        // Loading the picture and then setting its src attribute to "the-picture" element
         reader.onload = function(e) {
-            document.getElementById("the-picture").setAttribute('src', e.target.result);
+            GUIpicture.setAttribute('src', e.target.result);
+            console.log(e.target.result);
+
+            // Inserting the image to DataContent.questionIMG
+            DataContent.questionIMG = e.target.result;
+            localStorage.setItem("Data", JSON.stringify(DataContent));
         };
         
+        // Making the reader read the picture as a URL
         reader.readAsDataURL(input.files[0]);
     };
+    
 };
