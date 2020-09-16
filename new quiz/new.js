@@ -63,6 +63,8 @@ uploadPictureButton.addEventListener("change", function() { displayPicture(this)
 nextButton.addEventListener("click", nextQuestion);
 backButton.addEventListener("click", prevQuestion);
 
+saveButton.addEventListener("click", saveQuiz);
+
 radioButton1.addEventListener("click", correctFunction);
 radioButton2.addEventListener("click", correctFunction);
 radioButton3.addEventListener("click", correctFunction);
@@ -77,12 +79,36 @@ function setInfo() {
     const DataContent = JSON.parse(localStorage.getItem('Data'));
 
     GUIQuizName.value = QuizName_storage;
+
     GUIQuestionNum.innerHTML = DataContent.num;
+    GUIpicture.setAttribute('src', DataContent.questionIMG);
     GUIquestionText.value = DataContent.questionText;
+
+    // Setting the answers as inputted
     answer1.value = DataContent.answersBank.first;
     answer2.value = DataContent.answersBank.second;
     answer3.value = DataContent.answersBank.third;
     answer4.value = DataContent.answersBank.fourth;
+
+    // Putting the radio point at the correct answer 
+    switch (DataContent.correctAnswer) {
+        case 1:
+            radioButton1.checked = true;
+            break;
+
+        case 2:
+            radioButton2.checked = true;
+            break;
+
+        case 3:
+            radioButton3.checked = true;
+            break;
+
+        case 4:
+            radioButton4.checked = true;
+            break;
+
+    }
 };
     
     
@@ -284,7 +310,6 @@ function displayPicture(input) {
     
     // Bringing up the local storage
     let DataContent = JSON.parse(localStorage.getItem('Data'));
-    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
 
     // Check for the inputted picture and make a file reader 
     if (input.files && input.files[0]) {
@@ -303,5 +328,22 @@ function displayPicture(input) {
         // Making the reader read the picture as a URL
         reader.readAsDataURL(input.files[0]);
     };
-    
+};
+
+// A function that saves the quiz 
+function saveQuiz(e){
+    e.preventDefault(); // preventing the button from refreshing the page
+
+    // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
+    let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+
+    let r = confirm("האם אתה רוצה לשמור את השאלון הנוכחי? מומלץ לבדוק לפני סיום");
+    if (r==true)
+    {
+        alert("השאלון נשמר בהצלחה!")
+
+        // Moving back to home screen
+        window.location.href = "../Home page/Home.html";
+    };
 };
