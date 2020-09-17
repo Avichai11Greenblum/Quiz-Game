@@ -338,12 +338,36 @@ function saveQuiz(e){
     let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
 
-    let r = confirm("האם אתה רוצה לשמור את השאלון הנוכחי? מומלץ לבדוק לפני סיום");
-    if (r==true)
-    {
+    let problematicQuestion;
+   
+    for ( let i = 0; i < questionListContent.length; i++ ) {
+        index = questionListContent[i];
+        
+        if (index.questionIMG === '' || index.questionText === '' || index.correctAnswer === '' || index.answersBank === {first: '', second: '', third: '', fourth: ''}) {    
+            problematicQuestion = index.num;
+            break;
+
+        } else {
+            problematicQuestion = "all good";
+        }
+    };
+
+    if (problematicQuestion === "all good") {
         alert("השאלון נשמר בהצלחה!")
 
-        // Moving back to home screen
+        //Moving back to home screen
         window.location.href = "../Home page/Home.html";
+
+    } else {
+        let r = confirm(`לשאלה ${problematicQuestion} חסרים פרטים, אם תמשיך היא לא תישמר`);
+
+        if (r) {
+            alert(`השאלון נשמר בהצלחה ללא שאלה ${problematicQuestion}`);
+
+            //Moving back to home screen
+            window.location.href = "../Home page/Home.html";
+        };
     };
+    
 };
+
