@@ -330,16 +330,16 @@ function displayPicture(input) {
     };
 };
 
-// A function that saves the quiz 
+// A function that saves the quiz with some UI for not fully filled questions
 function saveQuiz(e){
     e.preventDefault(); // preventing the button from refreshing the page
 
     // Bringing up the local storage
-    let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
 
     let problematicQuestion;
    
+    // A loop that goes though the questions and checks for missing info
     for ( let i = 0; i < questionListContent.length; i++ ) {
         index = questionListContent[i];
         
@@ -351,6 +351,9 @@ function saveQuiz(e){
             problematicQuestion = "all good";
         }
     };
+
+    // If any question misses info the site will tell it about the first question he will find that misses info
+    // and if not it will notify the user that the quiz as being saved.
 
     if (problematicQuestion === "all good") {
         alert("השאלון נשמר בהצלחה!")
