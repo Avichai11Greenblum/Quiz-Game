@@ -53,6 +53,12 @@ if (localStorage.getItem("QuizNAme") === "") {
     localStorage.setItem("QuizName",JSON.stringify(""));
 };
 
+// Making the space for the finished Quizzes in local storage
+if (localStorage.getItem("Finished_Quizzes") === null) {
+    localStorage.setItem("Finished_Quizzes",JSON.stringify([]));
+};
+
+
 // EVENT LISTENERS
 
 document.addEventListener("DOMContentLoaded", setInfo);
@@ -318,7 +324,6 @@ function displayPicture(input) {
         // Loading the picture and then setting its src attribute to "the-picture" element
         reader.onload = function(e) {
             GUIpicture.setAttribute('src', e.target.result);
-            console.log(e.target.result);
 
             // Inserting the image to DataContent.questionIMG
             DataContent.questionIMG = e.target.result;
@@ -335,15 +340,24 @@ function saveQuiz(e){
     e.preventDefault(); // preventing the button from refreshing the page
 
     // Bringing up the local storage
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
+    let QuizName_storage = JSON.parse(localStorage.getItem('QuizName')); 
+    let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes')); 
 
+    // The final version of the quiz
+    let finitoVer;
+
+    // Assistance variables
+    let problematic_index;
     let problematicQuestion;
    
     // A loop that goes though the questions and checks for missing info
     for ( let i = 0; i < questionListContent.length; i++ ) {
-        index = questionListContent[i];
+        let index = questionListContent[i];
         
         if (index.questionIMG === '' || index.questionText === '' || index.correctAnswer === '' || index.answersBank === {first: '', second: '', third: '', fourth: ''}) {    
+           problematic_index = index;
             problematicQuestion = index.num;
             break;
 
@@ -352,10 +366,20 @@ function saveQuiz(e){
         }
     };
 
-    // If any question misses info the site will tell it about the first question he will find that misses info
-    // and if not it will notify the user that the quiz as being saved.
+    // If any question misses info the site will tell about it to user through alert, the first question that will 
+    // be found missing info will not be saved.
 
     if (problematicQuestion === "all good") {
+
+        // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
+        finitoVer = {
+            QuizName_storage: questionListContent
+        };
+
+        FinishedQuizzes.push(finitoVer);
+        localStorage.setItem("Finished_Quizzes", JSON.stringify(FinishedQuizzes));
+
+
         alert("השאלון נשמר בהצלחה!")
 
         //Moving back to home screen
@@ -365,6 +389,18 @@ function saveQuiz(e){
         let r = confirm(`לשאלה ${problematicQuestion} חסרים פרטים, אם תמשיך היא לא תישמר`);
 
         if (r) {
+            const filteredList =  questionListContent.filter( (item) => {
+                return item !== problematic_index;
+            })
+            
+            // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
+            finitoVer = {
+                QuizName_storage: filteredList
+            };
+
+            FinishedQuizzes.push(finitoVer);
+            localStorage.setItem("Finished_Quizzes", JSON.stringify(FinishedQuizzes));
+
             alert(`השאלון נשמר בהצלחה ללא שאלה ${problematicQuestion}`);
 
             //Moving back to home screen
