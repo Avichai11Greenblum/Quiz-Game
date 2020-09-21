@@ -60,6 +60,11 @@ li {
     color: rgba(0, 119, 255);
     background: white;
 }
+.new-button:focus{
+    outline: none;
+    box-shadow: none;
+}
+
 
 .already-made-button{
     width: 25vw;
@@ -76,4 +81,9 @@ li {
 .already-made-button:hover{
     color: rgba(0, 119, 255);
     background: white;
+}
+
+.already-made-button:focus{
+    outline: none;
+    box-shadow: none;
 }
