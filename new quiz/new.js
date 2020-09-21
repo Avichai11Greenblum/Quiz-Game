@@ -344,13 +344,15 @@ function saveQuiz(e){
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     let QuizName_storage = JSON.parse(localStorage.getItem('QuizName')); 
     let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes')); 
-
+    console.log(QuizName_storage);
     // The final version of the quiz
     let finitoVer;
 
     // Assistance variables
     let problematic_index;
+    let problematic_List = [];
     let problematicQuestion;
+    
    
     // A loop that goes though the questions and checks for missing info
     for ( let i = 0; i < questionListContent.length; i++ ) {
@@ -358,16 +360,16 @@ function saveQuiz(e){
         
         if (index.questionIMG === '' || index.questionText === '' || index.correctAnswer === '' || index.answersBank === {first: '', second: '', third: '', fourth: ''}) {    
            problematic_index = index;
+            problematic_List.push(problematic_index);
             problematicQuestion = index.num;
-            break;
 
         } else {
             problematicQuestion = "all good";
         }
     };
 
-    // If any question misses info the site will tell about it to user through alert, the first question that will 
-    // be found missing info will not be saved.
+    // If any question misses info the site will tell about it to user through alert, the questions that will 
+    // be found missing info will added to a list and will be notified to the user.
 
     if (problematicQuestion === "all good") {
 
@@ -386,27 +388,41 @@ function saveQuiz(e){
         window.location.href = "../Home page/Home.html";
 
     } else {
-        let r = confirm(`לשאלה ${problematicQuestion} חסרים פרטים, אם תמשיך היא לא תישמר`);
 
-        if (r) {
-            const filteredList =  questionListContent.filter( (item) => {
-                return item !== problematic_index;
-            })
-            
-            // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
-            finitoVer = {
-                QuizName_storage: filteredList
+        // Making the variable for the filtered list 
+        let filteredList =  questionListContent;
+
+        for (let i = 0; i < problematic_List.length; i++){
+
+            let r = confirm(`לשאלה ${problematic_List[i].num} חסרים פרטים, אם תמשיך היא לא תישמר`);
+
+            // If the user wants to save without this question the code will filter it out.
+            if (r) {
+                filteredList =  filteredList.filter( (item) => {
+                    return item !== problematic_List[i]})
+
+               // prevent from asking about the next question if the user clicked cancel on one of the alerts 
+            } else {
+                break;
             };
 
-            FinishedQuizzes.push(finitoVer);
-            localStorage.setItem("Finished_Quizzes", JSON.stringify(FinishedQuizzes));
+            // A check to see if its the last question thats lacks info
+            if (r && problematic_List[i] === problematic_List[problematic_List.length-1]) {
 
-            alert(`השאלון נשמר בהצלחה ללא שאלה ${problematicQuestion}`);
+                // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
+                finitoVer = {
+                    QuizName_storage: filteredList
+                };
 
-            //Moving back to home screen
-            window.location.href = "../Home page/Home.html";
-        };
+                FinishedQuizzes.push(finitoVer);
+                localStorage.setItem("Finished_Quizzes", JSON.stringify(FinishedQuizzes));
+
+                alert("השאלון נשמר בהצלחה");
+
+                //Moving back to home screen
+                window.location.href = "../Home page/Home.html";
+            };      
+        };  
     };
-    
 };
 
