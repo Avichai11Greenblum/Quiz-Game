@@ -34,6 +34,10 @@ header {
     border-radius: 25px;
     font-size: 20px;
 }
+.username-input:focus{
+    outline: none;
+    box-shadow: none;
+}
 
 .password-input{
     width: 25vw;
@@ -42,6 +46,10 @@ header {
     margin-bottom: 3vh;
     border-radius: 25px;
     font-size: 20px;
+}
+.password-input:focus{
+    outline: none;
+    box-shadow: none;
 }
 
 .login-button{
@@ -53,6 +61,10 @@ header {
     border-radius: 25px;
     margin: 2vh;
     cursor: pointer;
+}
+.login-button:focus{
+    outline: none;
+    box-shadow: none;
 }
 
 label {
