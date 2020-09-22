@@ -344,7 +344,7 @@ function saveQuiz(e){
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     let QuizName_storage = JSON.parse(localStorage.getItem('QuizName')); 
     let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes')); 
-    console.log(QuizName_storage);
+    
     // The final version of the quiz
     let finitoVer;
 
@@ -375,7 +375,7 @@ function saveQuiz(e){
 
         // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
         finitoVer = {
-            QuizName_storage: questionListContent
+            [QuizName_storage]: questionListContent
         };
 
         FinishedQuizzes.push(finitoVer);
@@ -393,7 +393,6 @@ function saveQuiz(e){
         let filteredList =  questionListContent;
 
         for (let i = 0; i < problematic_List.length; i++){
-
             let r = confirm(`לשאלה ${problematic_List[i].num} חסרים פרטים, אם תמשיך היא לא תישמר`);
 
             // If the user wants to save without this question the code will filter it out.
@@ -408,10 +407,10 @@ function saveQuiz(e){
 
             // A check to see if its the last question thats lacks info
             if (r && problematic_List[i] === problematic_List[problematic_List.length-1]) {
-
+                
                 // Making an object that will help us save the Quiz's info to the Quiz's name and add it to the finished list
                 finitoVer = {
-                    QuizName_storage: filteredList
+                    [QuizName_storage]: filteredList
                 };
 
                 FinishedQuizzes.push(finitoVer);
