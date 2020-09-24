@@ -6,8 +6,16 @@
 
 body {
     height: 100vh;
-    width: 88vw;
+    width: 55vw;
     background-image: linear-gradient(90deg, rgb(71, 175, 223) , rgba(209, 2, 157, 0.815));
+}
+
+form {
+    width: 70%;
+    height: 50%;
+    display: flexbox;
+    flex-direction: column;
+    background: rgba(240, 248, 255, 0.774);
 }
 
 .headline-text {
@@ -28,8 +36,70 @@ p{
     margin-bottom: 30px;
 }
 
-.made-list{
-    background-color: white;
-    display: flexbox;
-    flex-direction: column;
+.back-home{
+    position: absolute;
+    top: 8%;
+    right: 15%;
+    width: 2rem;
+    height: 1.5rem;
+    border: none;
+    outline: none;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 350ms;
 }
+.back-home:hover{
+    background-color: skyblue;
+}
+
+.made-list {
+    position: relative;
+    right: 40rem;
+    top: 10rem;
+    list-style-type: none;
+}
+
+.quizTag {
+    width: 25vw;
+    height: 8vh;
+    radius: 50px;
+    border-radius: 50px;
+    font-size: 20px;
+    color: white;
+    background: rgba(0, 119, 255);
+    cursor: pointer;
+    transition: 300ms all ease;
+    position: relative;
+    left: 20rem;
+    margin-bottom: 3rem; 
+}
+.quizTag:hover{
+    color: rgba(0, 119, 255);
+    background: white;
+}
+.quizTag:focus{
+    outline: none;
+    box-shadow: none;
+} 
+
+.delButton{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 10px;;
+    font-size: 20px;
+    position: relative;
+    left: 15rem;
+    color: aliceblue;
+    background-color: rgb(245, 101, 101);
+    cursor: pointer;
+    transition: 300ms all ease;
+}
+.delButton:hover{
+    color: rgb(245, 101, 101);
+    background: white;
+}
+.delButton:focus{
+    outline: none;
+    box-shadow: none;
+} 
