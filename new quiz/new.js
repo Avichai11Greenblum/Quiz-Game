@@ -5,6 +5,7 @@ const GUIQuestionNum = document.querySelector('.questionNum');
 const GUIquestionText = document.querySelector(".question");
 
 const uploadPictureButton = document.querySelector(".photo-upload");
+const backHomeButton = document.querySelector(".back-home");
 const saveButton = document.querySelector(".save");
 const backButton = document.querySelector(".back");
 const nextButton = document.querySelector(".forward");
@@ -69,6 +70,7 @@ uploadPictureButton.addEventListener("change", function() { displayPicture(this)
 nextButton.addEventListener("click", nextQuestion);
 backButton.addEventListener("click", prevQuestion);
 
+backHomeButton.addEventListener("click", goHome);
 saveButton.addEventListener("click", saveQuiz);
 
 radioButton1.addEventListener("click", correctFunction);
@@ -287,6 +289,14 @@ function prevQuestion(e) {
     // Saving to Data(Local storage)
     localStorage.setItem("Data", JSON.stringify(DataContent));
 };
+
+// A function that will take the user to home page
+function goHome(e) {
+    e.preventDefault();
+
+    window.location.href = "../Home page/Home.html";
+}
+
     
  // A function that saves the correct answer   
 function correctFunction() {
