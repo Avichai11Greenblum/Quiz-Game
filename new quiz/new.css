@@ -6,7 +6,7 @@
 
 body {
     height: 1100px;
-    width: 80vw;
+    width: 70vw;
     background-image: linear-gradient(90deg, rgb(71, 175, 223) , rgba(209, 2, 157, 0.815));
 }
 
@@ -20,7 +20,7 @@ h1 {
 
 form {
     width:70vw;
-    height: 1000px;
+    height: 65rem;
 
     display: flex;
     flex-direction: column;
@@ -39,9 +39,9 @@ form {
     position: relative;
     width: 15vw;
     height: 40px;
-    bottom: 30px;
-    left: 480px;
-
+    left: 22rem;
+    border: none;
+    border-radius: 5%;
     text-align: center;
     font-size: 20px; 
     color: grey;
@@ -49,7 +49,7 @@ form {
 
 p {
     position: relative;
-    bottom: 80px;
+    bottom: 2rem;
     font-size: 40px;;
 }
 
@@ -68,29 +68,76 @@ p {
 .photo-upload{
     position: relative;
     z-index: 2;
-    top: 300px;
+    top: 280px;
     right: 350px;
 }
 
 #the-picture{
     position: relative;
-    bottom: 80px;
+    bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.back-home{
+    position: relative;
+    bottom: 25rem;
+    left: 580px;
+    width: 3rem;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 300ms;
+}
+.back-home:hover{
+    background-color: skyblue;
 }
 
 .back{
     position: relative;
     left: 550px;
+    width: 3rem;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 300ms;
+}
+.back:hover{
+    background-color: skyblue;
 }
 
 .forward{
     position: relative;
     right: 550px;
+    width: 3rem;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 300ms;
+}
+.forward:hover{
+    background-color: skyblue;
 }
 
 .save{
     position: relative;
-    top: 300px;
+    bottom: 30rem;
     right: 580px;
+    width: 3rem;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 300ms;
+}
+.save:hover{
+    background-color: skyblue;
 }
 
 .answers{
@@ -108,13 +155,16 @@ p {
 input {
     width: 750px;
     height: 60px;
-    background: #f2f2f2;
+    background: white;
     margin-bottom: 20px;
     text-align: center;
+    font-size: 20px;
 }
 
 .answerArea {
     display: flex;
+    position: relative;
+    bottom: 6rem;
 }
 
 #RadioInput{
