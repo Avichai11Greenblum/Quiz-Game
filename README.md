@@ -5,4 +5,5 @@ at the moment there are:
 - Login screen
 - Home page
 - Make your quiz page  
- - Use made Quizzes
+ - Use made Quizzes page
+ - client side quiz --> at progres 
