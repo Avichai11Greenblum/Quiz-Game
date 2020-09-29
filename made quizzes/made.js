@@ -1,3 +1,4 @@
+
 // SELECTORS
 
 let Finished_Quizzes = JSON.parse(localStorage.getItem("Finished_Quizzes"));
@@ -14,8 +15,8 @@ MadeList.addEventListener('click', btnPress);
 
 // A function that will greet the user according to the local storage circumstances
 function greetUser(){
-    if (Finished_Quizzes === null){
-        greetingMassage.innerHTML = "עדיין לא הכנת שאלונים";
+    if (Finished_Quizzes.length < 1){
+        greetingMassage.innerHTML = "אין שאלונים קיימים.";
     } else {
         greetingMassage.innerHTML = 'בחר שאלון:';
         
@@ -42,6 +43,12 @@ function greetUser(){
 function btnPress(event) {
     const target = event.target;
     
+    // If the user presses a quiz tag in order to use that quiz
+    if(target.classList.value === "quizTag"){
+        window.location.href = "../user/user.html";
+    }
+
+
     // If the user presses the del button
     if (target.classList.value === "delButton"){
         r = confirm("האם אתה בטוח שאתה רוצה למחוק את השאלון?");
@@ -55,13 +62,19 @@ function btnPress(event) {
             
             // Resetting Finished_Quizzes in case of changes
             Finished_Quizzes = JSON.parse(localStorage.getItem("Finished_Quizzes"));
+            
             for (let i = 0; i < Finished_Quizzes.length; i++) {
+                
+                if(Object.keys(Finished_Quizzes[i]).join("") === parentName) {
 
-                console.log(toString(Object.keys(Finished_Quizzes[i])),parentName )
-                // if(Object.keys(Finished_Quizzes[i]) === parentName) {
-                //     console.log("gotcha")
-                // }
+                    // Removing the selected quiz from the list variable
+                    Finished_Quizzes.splice( i, 1)
+
+                    // Setting the list variable to be the new Finished_Quizzes item in local storage
+                    localStorage.setItem("Finished_Quizzes", JSON.stringify(Finished_Quizzes));
+                }
             }
+            
 
             // Remove from GUI 
             parent.remove();
