@@ -5,6 +5,9 @@ let Finished_Quizzes = JSON.parse(localStorage.getItem("Finished_Quizzes"));
 const greetingMassage = document.getElementById("greetMassage");
 const MadeList = document.querySelector(".made-list");
 
+// Global variables
+
+
 
 // Event Listeners
 
@@ -45,6 +48,29 @@ function btnPress(event) {
     
     // If the user presses a quiz tag in order to use that quiz
     if(target.classList.value === "quizTag"){
+
+        for (let i = 0; i < Finished_Quizzes.length; i++){
+
+            // looping through the saved quizzes names
+            const nameOfSavedQuiz = Object.values(Object.keys(Finished_Quizzes[i])).join("");
+            
+            if (nameOfSavedQuiz === target.innerText){
+                // console.log(Finished_Quizzes[i]);
+
+                // Setting the local store from which the client page will draw its info from
+
+                // Quiz name
+                localStorage.setItem("QuizName", nameOfSavedQuiz);
+
+                // Question list 
+                localStorage.setItem("questionList", JSON.stringify(Object.values(Finished_Quizzes[i])));
+                
+
+                // console.log();
+            };
+        };
+
+
         window.location.href = "../user/user.html";
     }
 
