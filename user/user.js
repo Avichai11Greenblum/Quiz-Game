@@ -23,7 +23,13 @@ document.addEventListener("DOMContentLoaded", setQuiz)
 
 function goHome(e) {
     e.preventDefault();
-    window.location.href = "../made quizzes/made.html";
+    
+    //clearing local and moving back to home screen
+    localStorage.removeItem("QuizName");
+    localStorage.removeItem("Data");
+    localStorage.removeItem("questionList");
+
+    window.location.href = "../Home page/Home.html";
 }
 
 function setQuiz() {
