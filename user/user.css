@@ -64,6 +64,17 @@ p {
     background-color: skyblue;
 }
 
+h2 {
+    position: relative;
+    bottom: 3rem;
+    width: 45rem;
+    text-align: center;
+    z-index: 2;
+    background: rgb(255, 255, 76);
+    padding: 0.5rem;
+    border: 2px solid black;
+}
+
 .answers{
     position: relative;
     top: 15px;
