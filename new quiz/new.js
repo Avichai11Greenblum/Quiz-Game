@@ -83,7 +83,7 @@ radioButton4.addEventListener("click", correctFunction);
 
 // A function that will show the current info of a question when the user gets inside the website
 function setInfo() {
-    const QuizName_storage = JSON.parse(localStorage.getItem('QuizName'));
+    const QuizName_storage = localStorage.getItem('QuizName');
     const DataContent = JSON.parse(localStorage.getItem('Data'));
 
     GUIQuizName.value = QuizName_storage;
@@ -120,7 +120,7 @@ function setInfo() {
 };
     
     
-// A function that updates the the local storage according to changes of the inputs
+// A function that updates the the local storage according to live changes of the inputs
 function updateData() {
     // Bringing up the local storage
     const DataContent = JSON.parse(localStorage.getItem('Data'));
@@ -129,6 +129,7 @@ function updateData() {
     // Changing the display(GUI) according to the values in Data(local storage) for our question position. 
     DataContent.questionText = GUIquestionText.value;
 
+    // changing data to be with the values of the current question
     DataContent.answersBank.first = answer1.value;
     DataContent.answersBank.second = answer2.value;
     DataContent.answersBank.third = answer3.value;
@@ -350,11 +351,31 @@ function saveQuiz(e){
     e.preventDefault(); // preventing the button from refreshing the page
 
     // Bringing up the local storage
-    let DataContent = JSON.parse(localStorage.getItem('Data'));
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     let QuizName_storage = JSON.parse(localStorage.getItem('QuizName')); 
-    let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes')); 
+    let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes'));
     
+
+    // A check to see if the user gave the quiz a name
+    if (QuizName_storage === "") {
+        return alert("השאלון לא קיבל שם.")
+    }
+
+    // A check to see if the user is about to save a quiz with an already used name
+    let FinishedQuizzes_check = JSON.parse(localStorage.getItem('Finished_Quizzes'));
+
+    for (let i = 0; i < FinishedQuizzes_check.length; i++){
+        const nameOfSavedQuiz = Object.values(Object.keys(FinishedQuizzes_check[i])).join("")
+        
+        if (nameOfSavedQuiz === QuizName_storage){
+            return alert("קיים שאלון עם השם הזה, נדרש להמציא שם חדש");
+        };
+    };
+
+    if (questionListContent.length === 1) {
+        return alert("שאלון לא יכול להיות מורכב משאלה אחת בלבד!");
+    }
+
     // The final version of the quiz
     let finitoVer;
 
