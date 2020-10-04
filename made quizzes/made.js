@@ -1,109 +1,56 @@
 
 // SELECTORS
 
-let Finished_Quizzes = JSON.parse(localStorage.getItem("Finished_Quizzes"));
-const greetingMassage = document.getElementById("greetMassage");
-const MadeList = document.querySelector(".made-list");
+const homeButton = document.querySelector(".back-home");
 
-// Global variables
+const quizNameGUI = document.querySelector(".quiz-name");
+const questionNumGUI = document.querySelector(".questionNum");
 
+const GUIImage = document.getElementById("the-picture");
+const GUIText = document.querySelector(".text");
 
+const answer1 = document.querySelector(".answer1");
+const answer2 = document.querySelector(".answer2");
+const answer3 = document.querySelector(".answer3");
+const answer4 = document.querySelector(".answer4");
 
-// Event Listeners
+// EVENT LISTENERS
 
-document.addEventListener("DOMContentLoaded", greetUser);
-MadeList.addEventListener('click', btnPress);
+homeButton.addEventListener("click", goHome);
+document.addEventListener("DOMContentLoaded", setQuiz)
 
-// Functions
+// FUNCTIONS
 
-// A function that will greet the user according to the local storage circumstances
-function greetUser(){
-    if (Finished_Quizzes.length < 1){
-        greetingMassage.innerHTML = "אין שאלונים קיימים.";
-    } else {
-        greetingMassage.innerHTML = 'בחר שאלון:';
-        
-        Finished_Quizzes.forEach(ele => {
-            const quizArea = document.createElement("li");
-            quizArea.classList.add('quizArea');
-
-            const quizTag = document.createElement("button");
-            quizTag.classList.add('quizTag');
-            quizTag.innerHTML = Object.keys(ele);
-            quizArea.appendChild(quizTag);
-
-            const delButton = document.createElement("button");
-            delButton.classList.add("delButton");
-            delButton.innerHTML = 'X';
-            quizArea.appendChild(delButton);
-
-            MadeList.appendChild(quizArea);
-        });
-    }
-};
-
-// A function that will be activated when a button will be pressed 
-function btnPress(event) {
-    const target = event.target;
+function goHome(e) {
+    e.preventDefault();
     
-    // If the user presses a quiz tag in order to use that quiz
-    if(target.classList.value === "quizTag"){
+    //clearing local and moving back to home screen
+    localStorage.removeItem("QuizName");
+    localStorage.removeItem("Data");
+    localStorage.removeItem("questionList");
 
-        for (let i = 0; i < Finished_Quizzes.length; i++){
+    window.location.href = "../Home page/Home.html";
+}
 
-            // looping through the saved quizzes names
-            const nameOfSavedQuiz = Object.values(Object.keys(Finished_Quizzes[i])).join("");
-            
-            if (nameOfSavedQuiz === target.innerText){
-                // console.log(Finished_Quizzes[i]);
+function setQuiz() {
+    // Bringing up local storage as variables
+    const quiz_name = localStorage.getItem("QuizName");
+    const questionList = JSON.parse(localStorage.getItem("questionList"));
 
-                // Setting the local store from which the client page will draw its info from
+    // Setting the quiz name
+    quizNameGUI.innerText = quiz_name;
 
-                // Quiz name
-                localStorage.setItem("QuizName", nameOfSavedQuiz);
+    // setting first question
 
-                // Question list 
-                localStorage.setItem("questionList", JSON.stringify(Object.values(Finished_Quizzes[i])));
-                
-
-                // console.log();
-            };
-        };
-
-
-        window.location.href = "../user/user.html";
-    }
-
-
-    // If the user presses the del button
-    if (target.classList.value === "delButton"){
-        r = confirm("האם אתה בטוח שאתה רוצה למחוק את השאלון?");
-        
-        if (r){
-            // Getting the name of the wanted quiz
-            const parent = target.parentElement;
-            const parentName = parent.children[0].innerText;
-            
-            // Removing the quiz from local storage
-            
-            // Resetting Finished_Quizzes in case of changes
-            Finished_Quizzes = JSON.parse(localStorage.getItem("Finished_Quizzes"));
-            
-            for (let i = 0; i < Finished_Quizzes.length; i++) {
-                
-                if(Object.keys(Finished_Quizzes[i]).join("") === parentName) {
-
-                    // Removing the selected quiz from the list variable
-                    Finished_Quizzes.splice( i, 1)
-
-                    // Setting the list variable to be the new Finished_Quizzes item in local storage
-                    localStorage.setItem("Finished_Quizzes", JSON.stringify(Finished_Quizzes));
-                }
-            }
-            
-
-            // Remove from GUI 
-            parent.remove();
-        };
-    }
+    // Question number
+    questionNumGUI.innerText = 1;
+    // Question Text
+    GUIText.innerText = questionList[0][0].questionText;
+    // Question answers
+    answer1.innerText = questionList[0][0].answersBank.first;
+    answer2.innerText = questionList[0][0].answersBank.second;
+    answer3.innerText = questionList[0][0].answersBank.third;
+    answer4.innerText = questionList[0][0].answersBank.fourth;
+    // Question Image
+    GUIImage.setAttribute("src", questionList[0][0].questionIMG); 
 };
