@@ -90,10 +90,11 @@ h2 {
 button {
     width: 750px;
     height: 60px;
-    background: white;
+    /* background: white; */
     margin-bottom: 20px;
     text-align: center;
     font-size: 20px;
+    transition: all 350ms ease-in-out;
 }
 
 .answerArea {
@@ -108,3 +109,14 @@ button {
     cursor: pointer;
 }
 
+.green {
+    background: rgb(0, 179, 0);
+}
+
+.red {
+    background: rgb(245, 54, 54);
+}
+
+button-disable{
+    color:black;
+}
