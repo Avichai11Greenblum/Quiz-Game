@@ -115,7 +115,6 @@ function setInfo() {
         case 4:
             radioButton4.checked = true;
             break;
-
     }
 };
     
@@ -354,7 +353,11 @@ function saveQuiz(e){
     let questionListContent = JSON.parse(localStorage.getItem('questionList'));
     let QuizName_storage = JSON.parse(localStorage.getItem('QuizName')); 
     let FinishedQuizzes = JSON.parse(localStorage.getItem('Finished_Quizzes'));
+    let DataContent = JSON.parse(localStorage.getItem('Data'));
     
+    // Making the save quiz button to save the current changes before moving to prev/next question
+    questionListContent[DataContent.num - 1] = DataContent;
+    localStorage.setItem("questionList", JSON.stringify(questionListContent));
 
     // A check to see if the user gave the quiz a name
     if (QuizName_storage === "") {
@@ -415,7 +418,11 @@ function saveQuiz(e){
 
         alert("השאלון נשמר בהצלחה!")
 
-        //Moving back to home screen
+        //clearing local and moving back to home screen
+        localStorage.removeItem("QuizName");
+        localStorage.removeItem("Data");
+        localStorage.removeItem("questionList");
+
         window.location.href = "../Home page/Home.html";
 
     } else {
@@ -449,7 +456,11 @@ function saveQuiz(e){
 
                 alert("השאלון נשמר בהצלחה");
 
-                //Moving back to home screen
+                //clearing local and moving back to home screen
+                localStorage.removeItem("QuizName");
+                localStorage.removeItem("Data");
+                localStorage.removeItem("questionList");
+
                 window.location.href = "../Home page/Home.html";
             };      
         };  
