@@ -294,7 +294,14 @@ function prevQuestion(e) {
 function goHome(e) {
     e.preventDefault();
 
-    window.location.href = "../Home page/Home.html";
+    let r = confirm("אם תצא השאלון לא ישמר, האם אתה בטוח שאתה רוצה לצאת?");
+    if (r) {
+        localStorage.removeItem("Data"); 
+        localStorage.removeItem("questionList"); 
+        localStorage.removeItem("QuizName"); 
+        window.location.href = "../Home page/Home.html";
+    };
+    
 }
 
     
