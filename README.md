@@ -6,4 +6,5 @@ at the moment there are:
 - Home page
 - Make your quiz page  
  - Use made Quizzes page
- - client side quiz --> at progres 
+ - client side quiz
+ - finish page with score and comment
