@@ -20,8 +20,10 @@ const answer4 = document.querySelector(".answer4");
 // Bringing up local storage as variables
 const quiz_name = localStorage.getItem("QuizName");
 const questionList = JSON.parse(localStorage.getItem("questionList"));
+
 let global_index = 0;
 let counter = 0;
+
 
 // EVENT LISTENERS
 
@@ -42,6 +44,34 @@ function goHome(e) {
 
     window.location.href = "../Home page/Home.html";
 }
+
+function nextQuestion() {
+
+    // Checking if the quiz has ended, if so go to finish page and clean local storage
+    if (questionList[0].length === global_index + 1) {
+        let y = [counter,questionList[0].length];
+        localStorage.setItem("congrats", y);
+        localStorage.removeItem("QuizName");
+        localStorage.removeItem("questionList");
+        window.location.href = "../finish page/finish.html";
+    };
+
+
+    // Moving to the next question
+    global_index++;
+    // Question number
+    questionNumGUI.innerText = global_index + 1;
+    // Question Text
+    GUIText.innerText = questionList[0][global_index].questionText;
+    // Question answers
+    answer1.innerText = questionList[0][global_index].answersBank.first;
+    answer2.innerText = questionList[0][global_index].answersBank.second;
+    answer3.innerText = questionList[0][global_index].answersBank.third;
+    answer4.innerText = questionList[0][global_index].answersBank.fourth;
+    // Question Image
+    GUIImage.setAttribute("src", questionList[0][global_index].questionIMG);
+};
+
 
 // A function that will set the quiz info to the user's screen plus the first question
 function setQuiz() {
@@ -71,6 +101,9 @@ function answerClick(e) {
     // Bringing up local storage as variables
     const questionList = JSON.parse(localStorage.getItem("questionList"));
     
+    // In case the user will press between the answers
+    if (e.target.classList.value === "answerArea") return null
+
     // receiving user's choice 
     let userPick;
     switch(e.target.classList.value) {
@@ -102,7 +135,8 @@ function answerClick(e) {
         setTimeout(() => {
             counter++;
             e.target.classList.toggle("green");
-            buttons.forEach(button => button.disabled = !1)
+            buttons.forEach(button => button.disabled = !1);
+            nextQuestion();
         }, 2000)
         
     
@@ -111,7 +145,6 @@ function answerClick(e) {
         e.target.classList.toggle("red");
 
         let x = "answer" + questionList[0][global_index].correctAnswer;
-        console.log(x)
         eval(x).classList.toggle("green");
 
         const buttons = [answer1, answer2, answer3, answer4]
@@ -120,7 +153,8 @@ function answerClick(e) {
         setTimeout(() => {
             e.target.classList.toggle("red");
             eval(x).classList.toggle("green");
-            buttons.forEach(button => button.disabled = !1)
+            buttons.forEach(button => button.disabled = !1);
+            nextQuestion();
         }, 2000)
     };
 };
